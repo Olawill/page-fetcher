@@ -13,9 +13,7 @@ const url = new URL(resource, domain).href;
 
 // Make an http request to the constructed url
 request(url, (error, response, body) => {
-  // console.log('error:', error); // Print the error if one occurred
-  // console.log('statusCode:', response);
-  // console.log('statusCode:', response.statusCode); // Print the response status code if a response was received
+  
   if (error) {
     // When an invalid url is provided
     console.log('Invalid url provided!!!');
@@ -39,8 +37,10 @@ request(url, (error, response, body) => {
       output: process.stdout
     });
 
-    rl.question("Do you want to overwrite the existing file? Y/N", (answer) => {
+    // Asking whether to over write an existing file
+    rl.question("Do you want to overwrite the existing file? Y/N: ", (answer) => {
       if (answer.toUpperCase() === 'Y') {
+        // if the user wants to overwrite the existing file
         fs.writeFile(filePath, body, err => {
           if (err) {
             console.error(err);
@@ -48,17 +48,10 @@ request(url, (error, response, body) => {
           console.log(`Downloaded and saved ${body.length} bytes to ./index.html`)
         })
       }
-      
+
       rl.close();
     })
 
   });
   
-  // Write the body into the file path
-  // fs.writeFile(filePath, body, err => {
-  //   if (err) {
-  //     console.error(err);
-  //   }
-  //   console.log(`Downloaded and saved ${body.length} bytes to ./index.html`)
-  // });
 });
