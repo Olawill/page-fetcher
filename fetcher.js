@@ -20,6 +20,11 @@ request(url, (error, response, body) => {
     return;
   }
 
+  if (response.statusCode !== 200) {
+    console.log(`The request was not successful, return with status code ${reponse.statusCode}`);
+    return;
+  }
+
   // Check if the file already exist
   fs.access(filePath, err => {
     if (err) {
